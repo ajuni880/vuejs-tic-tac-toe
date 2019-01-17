@@ -40,10 +40,12 @@ export default class GameTable extends Vue {
         return this.squares.every((a) => a);
     }
 
-    public setMark(i: number) {
+    public setMark(i: number): boolean {
         if (!this.isMarked(i)) {
             this.squares.splice(i, 1, this.player);
+            return true;
         }
+        return false;
     }
 
     public isMarked(i: number): boolean {
@@ -73,8 +75,8 @@ export default class GameTable extends Vue {
     }
 
     public play(i: number): void {
-        this.setMark(i);
-        this.changeTurn();
+        const marked = this.setMark(i);
+        if (marked) this.changeTurn();
     }
 
     public machineMove(): void {
